@@ -1,2 +1,2 @@
 # DiscreteMathLaboratory
-laboratory
+laboratory from scratch
