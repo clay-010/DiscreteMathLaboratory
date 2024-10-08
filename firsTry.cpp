@@ -209,8 +209,8 @@ void modifyAdjacencyMatrix(int **&m, int t) {
     }
 }
 
-void createAdjacencyMatrix(int **&m, int &v, bool directed = false) {
-    int e, ov, dv;
+void createAdjacencyMatrix(int **&m, bool directed = false) {
+    int v, e, ov, dv;
     cout << "Input number of vertices: "; cin >> v;
     cout << "Input number of edges: "; cin >> e;
     
@@ -244,17 +244,17 @@ void menu(){
         cout << "(6) Quit Program. \nopcion...: ";
         cin >> opc;  // editing this part, be careful
         if (opc == 1) {
-            createAdjacencyMatrix();
+            createAdjacencyMatrix(m, false);
         } 
         else if (opc == 2) {
             if(m != nullptr)
                 modifyAdjacencyMatrix(m, t);
         }
         else if (opc == 3) {
-            readAdjMfromFile("data.txt", int **&m, int &t);
+            readAdjMfromFile("data.txt", m, t);
         }
         else if (opc == 4) {
-            saveAdjM_infile(string path, int **m, int t);
+            saveAdjM_infile("data.txt", m, t);
         }
         else if (opc == 5) {
             if(m != nullptr)
