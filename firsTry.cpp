@@ -153,14 +153,49 @@ void removeVertex(int **&m, int size, int vertex) {
     m = aux;
 }
 
-void modify_v_ofTheGraph(){
-    cout << "(3) Add vertice. \n";
-    cout << "(4) Remove vertice. \n";
+void modify_v_ofTheGraph(int **&m, int t, ){
+
+    while(opc != 3) {
+    	cout << "\n"; 
+	cout << "(1) Add vertice. \n";
+    	cout << "(2) Remove vertice. \n";
+        cout << "(3) exit. \n";
+        cin >> opc;
+        if (opc == 1) {
+            addVertex(m, t, false);
+        } 
+        else if (opc == 2) {
+	    int v;
+	    cout << "Input vertice to remove: ";
+	    cin >> v; 
+            removeVertex(m, t, v);
+        }
+        else if (opc != 3) {
+            cout << "Invalid option.\n";
+        }
+    }   
+
+    
 }
 
-void modify_e_ofTheGraph(){
-    cout << "(3) Add edge. \n";
-    cout << "(4) Remove edge. \n";
+void modify_e_ofTheGraph(int **&m, int t){
+
+    while(opc != 3) {
+    	cout << "\n"; 
+	cout << "(1) Add edge. \n";
+    	cout << "(2) Remove edge. \n";
+        cout << "(3) exit. \n";
+        cin >> opc;
+        if (opc == 1) {
+            addEdge(m, t);
+        } 
+        else if (opc == 2) {
+            removeEdge(m, t);
+        }
+        else if (opc != 3) {
+            cout << "Invalid option.\n";
+        }
+    }
 }
 //verify for directed or not directed graph
 void addEdge(int **m, int size) {
@@ -198,7 +233,7 @@ void modifyAdjacencyMatrix(int **&m, int t) {
         cout << "(3) exit. \n";
         cin >> opc;
         if (opc == 1) {
-            modify_v_ofTheGraph();
+            modify_v_ofTheGraph(m, t);
         } 
         else if (opc == 2) {
             modify_e_ofTheGraph(m, t);
