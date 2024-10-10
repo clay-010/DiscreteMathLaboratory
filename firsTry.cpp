@@ -299,7 +299,8 @@ void menu(){
             cout << "Invalid option.\n";
         }
     }
-    dealloc(m, t);
+    if (m != nullptr)
+    	dealloc(m, t);
     
 }
 int main() {
