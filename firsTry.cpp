@@ -296,7 +296,7 @@ void menu() {
             break;
         case 5:
             if (m != nullptr)
-                visualizeGraph(m, t, "graphs.dot", true);
+                visualizeGraph(m, t, "graphs.dot", false);
             break;
         case 6:
             break;
