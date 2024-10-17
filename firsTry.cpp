@@ -54,11 +54,16 @@ void displayImgGraph(int **m, int size, const string &dotFile, bool directed = f
     system("nohup display myGraph.png &");
 }
 
-void visualizeGraph(int **m, int size, const string &dotFile, bool directed = false, bool option = false) {
+void visualizeGraph(int **m, int size, const string &dotFile, bool directed = false) {
+    int option;
+    cout << "* View adjacency matrix (0):" << endl;
+    cout << "* View img graph        (1):" << endl;
+    cout << "* ans: ";
+    cin >> option;
     if (option) {
-        displayAdjacencyMatrix(m, size);
-    } else {
         displayImgGraph(m, size, dotFile, directed);
+    } else {
+        displayAdjacencyMatrix(m, size);
     }
 }
 
