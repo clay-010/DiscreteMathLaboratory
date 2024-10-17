@@ -49,17 +49,17 @@ void displayAdjacencyMatrix(int **v, int size) {
         cout << endl;
     }
 }
-void displayImgGraph(int **m, int size, string dotFile){
-    adjacencyMatrixToDot(m, size, dotFile, false);
+void displayImgGraph(int **m, int size, string dotFile, bool directed = false){
+    adjacencyMatrixToDot(m, size, dotFile, directed);
     system("dot -Tpng graphs.dot -o myGraph.png");
     system("nohup display myGraph.png &");
 }
-void visualizeGraph(int **m, int size, string dotFile, bool option=false){
+void visualizeGraph(int **m, int size, string dotFile, bool directed = false, bool option=false){
     if(option){
         displayAdjacencyMatrix(m, size);
     }
     else{
-        displayImgGraph(m, size, dotFile);
+        displayImgGraph(m, size, dotFile, directed);
     }
 }
 
@@ -126,7 +126,7 @@ void addVertex(int **&m, int size, bool add_e = false){
     dealloc(m, size);
     m = aux;
     if(add_e){
-        addEdge(m, size);
+        modify_e_ofTheGraph(m, size);
     }
 }
 //review or improve
@@ -198,28 +198,27 @@ void modify_e_ofTheGraph(int **&m, int t){
     }
 }
 //verify for directed or not directed graph
-void addEdge(int **m, int size) {
+void addEdge(int **m, int size, bool directed = false) {
     int ni, nf;
     cout << "Initial node: "; cin >> ni;
     cout << "Final node: "; cin >> nf;
     if ((ni >= 1 && ni <= size) && (nf >= 1 && nf <= size)) {
         m[ni-1][nf-1] = 1;
-        // If undirected, also add the reverse edge
-        m[nf-1][ni-1] = 1;
-        displayAdjacencyMatrix(m, size);
+	if (!directed)
+            m[nf-1][ni-1] = 1;
     } else {
         cout << "Nodes out of range.\n";
     }
 }
 //verify for directed graph
-void removeEdge(int **m, int size) {
+void removeEdge(int **m, int size, bool directed = false) {
     int ni, nf;
     cout << "Initial node: "; cin >> ni;
     cout << "Final node: "; cin >> nf;
     if ((ni >= 1 && ni <= size) && (nf >= 1 && nf <= size)) {
         m[ni-1][nf-1] = 0;
-        m[nf-1][ni-1] = 0; // If undirected, also remove the reverse edge
-        displayAdjacencyMatrix(m, size);
+	if (!directed)
+            m[nf-1][ni-1] = 0;
     } else {
         cout << "Nodes out of range.\n";
     }
