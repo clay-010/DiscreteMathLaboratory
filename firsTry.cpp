@@ -154,7 +154,7 @@ void modify_e_ofTheGraph(int **&m, int t) {
         cout << "\n";
         cout << "(1) Add edge. \n";
         cout << "(2) Remove edge. \n";
-        cout << "(3) exit. \n";
+        cout << "(3) exit. \nans: ";
         cin >> opc;
         if (opc == 1) {
             addEdge(m, t);
@@ -166,7 +166,7 @@ void modify_e_ofTheGraph(int **&m, int t) {
     }
 }
 
-void addVertex(int **&m, int size, bool add_e = false) {
+void addVertex(int **&m, int &size, bool add_e = false) {
     int **aux;
     int newSize = size + 1;
     alloc(aux, newSize);
@@ -178,12 +178,13 @@ void addVertex(int **&m, int size, bool add_e = false) {
     }
     dealloc(m, size);
     m = aux;
+    size = newSize;
     if (add_e) {
         modify_e_ofTheGraph(m, size);
     }
 }
 
-void removeVertex(int **&m, int size, int vertex) {
+void removeVertex(int **&m, int &size, int vertex) {
     if (vertex < 0 || vertex >= size) {
         cout << "Vertex out of range.\n";
         return;
@@ -204,21 +205,23 @@ void removeVertex(int **&m, int size, int vertex) {
     }
     dealloc(m, size);
     m = aux;
+    size = newSize;
 }
 
-void modify_v_ofTheGraph(int **&m, int t) {
+void modify_v_ofTheGraph(int **&m, int &t) {
     int opc = 0;
     while (opc != 3) {
         cout << "\n";
         cout << "(1) Add vertice. \n";
         cout << "(2) Remove vertice. \n";
-        cout << "(3) exit. \n";
+        cout << "(3) exit. \nans: ";
         cin >> opc;
         if (opc == 1) {
             addVertex(m, t, false);
         } else if (opc == 2) {
             int v;
-            cout << "Input vertice to remove: ";
+            cout << "Input vertice to remove ";
+	    cout <<"[0 - " << t - 1 << "]: "; 
             cin >> v;
             removeVertex(m, t, v);
         } else if (opc != 3) {
@@ -227,13 +230,13 @@ void modify_v_ofTheGraph(int **&m, int t) {
     }
 }
 
-void modifyAdjacencyMatrix(int **&m, int t) {
+void modifyAdjacencyMatrix(int **&m, int &t) {
     int opc = 0;
     while (opc != 3) {
         cout << "\n";
         cout << "(1) Modify vertice.\n";
         cout << "(2) Modify edge. \n";
-        cout << "(3) exit. \n";
+        cout << "(3) exit. \nans: ";
         cin >> opc;
         if (opc == 1) {
             modify_v_ofTheGraph(m, t);
@@ -245,14 +248,15 @@ void modifyAdjacencyMatrix(int **&m, int t) {
     }
 }
 
-void createAdjacencyMatrix(int **&m, bool directed = false) {
+void createAdjacencyMatrix(int **&m, int &size, bool directed = false) {
     int v, e, ov, dv;
     cout << "Input number of vertices: ";
     cin >> v;
     cout << "Input number of edges: ";
     cin >> e;
 
-    alloc(m, v);
+    size = v;
+    alloc(m, size);
     for (int i = 0; i < e; i++) {
         cout << "Edge " << (i + 1) << ": ";
         cout << "Origin vertex: "
@@ -282,12 +286,12 @@ void menu() {
         cout << "(2) Modify adjacency matrix vertex and aristas. \n";
         cout << "(3) Read adjacency matrix from file. \n";
         cout << "(4) Save adjacency matrix in file. \n";
-        cout << "(5) visualize graph ----- two option\n";
-        cout << "(6) Quit Program. \nopcion...: ";
-        cin >> opc; // editing this part, be careful
+        cout << "(5) visualize graph.\n";
+        cout << "(6) Quit Program. \nans: ";
+        cin >> opc;
         switch (opc) {
         case 1:
-            createAdjacencyMatrix(m, false);
+            createAdjacencyMatrix(m, t, false);
             break;
         case 2:
             if (m != nullptr)
